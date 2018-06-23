@@ -24,10 +24,14 @@ class SysController extends InterceptorController
         request()->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         $imageName = time() . '.' . request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('upload'), $imageName);
-
-        return $this->sendResponse([], 'Upload successfully.');
+		try {
+			$dir = 'upload'.DIRECTORY_SEPARATOR.date('Y').DIRECTORY_SEPARATOR.date('m').DIRECTORY_SEPARATOR.date('d');
+			request()->image->move(public_path($dir), $imageName);
+			$url = urlencode(str_replace(DIRECTORY_SEPARATOR,'/',$dir.DIRECTORY_SEPARATOR.$imageName));
+			return $this->sendResponse(['url'=>$url], 'Upload successfully.');
+		} catch (Exception $e) {
+			return $this->sendError('Upload Error.',$e->getMessage());
+		}
     }
 }
