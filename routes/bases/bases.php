@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'namespace' => 'API/V1',
+    'namespace' => 'API\V1',
     'middleware' => 'api',
     'prefix' => 'v1'
 ], function () {
