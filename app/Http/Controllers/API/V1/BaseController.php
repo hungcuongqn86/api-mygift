@@ -14,10 +14,21 @@ class BaseController extends InterceptorController
     /**
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bases = Base::all();
-        return $this->sendResponse($bases->toArray(), 'Bases retrieved successfully.');
+		$input = $request->all();
+		$query = Base::Where('delete_f',0);
+		
+		$skey = isset($input['key']) ? trim($input['key']) : '';
+		if ($skey != '') {
+			$query->Where(function ($query) use ($skey) {
+				$query->orWhere('code', 'LIKE', '%' . $skey . '%');
+				$query->orWhere('name', 'LIKE', '%' . $skey . '%');
+			});
+		}
+		$iLimit = isset($input['page_size']) ? trim($input['page_size']) : 10;
+		$rResult = $query->paginate($iLimit)->toArray();
+        return $this->sendResponse($rResult, 'Bases retrieved successfully.');
     }
 
 
@@ -82,20 +93,9 @@ class BaseController extends InterceptorController
         $base->description = $input['description'];
         $base->img = $input['img'];
         $base->status = $input['status'];
+        $base->delete_f = $input['delete_f'];
         $base->save();
 
         return $this->sendResponse($base->toArray(), 'Bases updated successfully.');
-    }
-
-
-    /**
-     * @param Base $base
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function destroy(Base $base)
-    {
-        $base->delete();
-        return $this->sendResponse($base->toArray(), 'Bases deleted successfully.');
     }
 }
