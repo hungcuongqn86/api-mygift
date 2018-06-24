@@ -17,3 +17,4 @@ require __DIR__ . '/sys/sys.php';
 require __DIR__ . '/auth/auth.php';
 require __DIR__ . '/auth/passwordReset.php';
 require __DIR__ . '/bases/bases.php';
+require __DIR__ . '/customers/customers.php';

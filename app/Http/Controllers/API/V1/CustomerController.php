@@ -24,6 +24,9 @@ class CustomerController extends InterceptorController
 			$query->Where(function ($query) use ($skey) {
 				$query->orWhere('code', 'LIKE', '%' . $skey . '%');
 				$query->orWhere('name', 'LIKE', '%' . $skey . '%');
+				$query->orWhere('phone', 'LIKE', '%' . $skey . '%');
+				$query->orWhere('email', 'LIKE', '%' . $skey . '%');
+				$query->orWhere('address', 'LIKE', '%' . $skey . '%');
 			});
 		}
 		$iLimit = isset($input['page_size']) ? trim($input['page_size']) : 10;
