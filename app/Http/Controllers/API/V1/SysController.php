@@ -18,6 +18,12 @@ class SysController extends InterceptorController
         $bases = Base::all();
         return $this->sendResponse($bases->toArray(), 'Bases retrieved successfully.');
     }
+	
+	public function oupload()
+    {
+		dd($_FILES);
+		echo 1;exit;
+    }
 
     public function upload()
     {

@@ -5,9 +5,6 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'v1'
 ], function () {
-    Route::group([
-        'middleware' => 'auth:api'
-    ], function () {
-        Route::post('upload', 'SysController@upload');
-    });
+	Route::OPTIONS('upload', 'SysController@oupload');
+	Route::post('upload', 'SysController@upload');
 });
