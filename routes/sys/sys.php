@@ -7,4 +7,5 @@ Route::group([
 ], function () {
 	Route::OPTIONS('upload', 'SysController@oupload');
 	Route::post('upload', 'SysController@upload');
+	Route::post('print', 'SysController@print');
 });
