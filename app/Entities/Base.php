@@ -12,6 +12,8 @@ class Base extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'price_base', 'price', 'description', 'img', 'status', 'delete_f'
+        'code', 'name', 'price_base', 'price', 'description', 'img', 'status',
+		'cdx', 'cdy', 'img_height', 'img_width', 'height', 'width', 'rotate', 'curls'
+		'pulled_oblique', 'colors', 'delete_f'
     ];
 }
