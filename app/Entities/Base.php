@@ -13,7 +13,7 @@ class Base extends Model
      */
     protected $fillable = [
         'code', 'name', 'price_base', 'price', 'description', 'img', 'status',
-		'cdx', 'cdy', 'img_height', 'img_width', 'height', 'width', 'rotate', 'curls'
+		'cdx', 'cdy', 'img_height', 'img_width', 'height', 'width', 'rotate', 'curls',
 		'pulled_oblique', 'colors', 'delete_f'
     ];
 }

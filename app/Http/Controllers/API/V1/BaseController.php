@@ -93,6 +93,16 @@ class BaseController extends InterceptorController
         $base->description = $input['description'];
         $base->img = $input['img'];
         $base->status = $input['status'];
+        $base->img_height = $input['img_height'];
+        $base->img_width = $input['img_width'];
+        $base->height = $input['height'];
+        $base->width = $input['width'];
+        $base->curls = $input['curls'];
+        $base->rotate = $input['rotate'];
+        $base->pulled_oblique = $input['pulled_oblique'];
+        $base->colors = $input['colors'];
+        $base->cdx = $input['cdx'];
+        $base->cdy = $input['cdy'];
         $base->delete_f = $input['delete_f'];
         $base->save();
 
