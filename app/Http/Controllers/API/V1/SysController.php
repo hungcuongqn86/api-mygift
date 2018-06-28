@@ -52,8 +52,7 @@ class SysController extends InterceptorController
         }
         $imagick1->save(public_path($dir). DIRECTORY_SEPARATOR . $imageName);
         $url = urlencode(str_replace(DIRECTORY_SEPARATOR, '/', $dir . DIRECTORY_SEPARATOR . $imageName));
-        $mockup = ['url'=>$url];
-        $res = ['base'=>$base, 'mockup' => $mockup];
+        $res = ['base'=>$base['id'], 'mockup' => $url];
         return $this->sendResponse($res, 'Successfully.');
     }
 
