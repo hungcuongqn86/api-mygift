@@ -8,6 +8,7 @@ use App\Http\Controllers\API\V1\InterceptorController as InterceptorController;
 use App\Entities\Base;
 use Validator;
 use Image;
+use File;
 
 
 class SysController extends InterceptorController
@@ -41,12 +42,19 @@ class SysController extends InterceptorController
 
         //compositeImage
         $imagick1 = Image::make($bgpath);
-        $imagick2 = Image::make($despath)->resize(100, 100);
-        $imagick1->insert($imagick2,'top-left', 280, 220);
-        // $imagick2->setImageFormat('png');
-        $imageName = time() . '.' . 'test.png';
-        $imagick1->save(public_path('design/') . $imageName);
-        return $this->sendResponse([$bgpath, $despath], 'Successfully.');
+        $imagick2 = Image::make($despath)->resize($base['width'], $base['height']);
+        $imagick1->insert($imagick2,'top-left', $base['cdx'], $base['cdy']);
+        $imageName = time() . '.' . 'mockup.png';
+        $dir = 'design' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d');
+        if (!File::exists($dir))
+        {
+            File::makeDirectory($dir, 0777, true, true);
+        }
+        $imagick1->save(public_path($dir). DIRECTORY_SEPARATOR . $imageName);
+        $url = urlencode(str_replace(DIRECTORY_SEPARATOR, '/', $dir . DIRECTORY_SEPARATOR . $imageName));
+        $mockup = ['url'=>$url];
+        $res = ['base'=>$base, 'mockup' => $mockup];
+        return $this->sendResponse($res, 'Successfully.');
     }
 
     public function upload()
