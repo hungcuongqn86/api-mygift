@@ -59,7 +59,9 @@ class BaseController extends InterceptorController
      */
     public function show($id)
     {
-        $bases = Base::find($id);
+        $bases = Base::with(['Mockup' => function ($query) {
+            $query->where('delete_f', '=', 0);
+        }])->find($id);
 
         if (is_null($bases)) {
             return $this->sendError('Bases not found.');

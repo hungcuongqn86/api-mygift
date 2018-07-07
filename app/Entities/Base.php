@@ -16,4 +16,8 @@ class Base extends Model
 		'cdx', 'cdy', 'img_height', 'img_width', 'height', 'width', 'rotate', 'curls',
 		'pulled_oblique', 'colors', 'delete_f'
     ];
+
+    public function Mockup() {
+        return $this->hasMany(Mockup::class,'base_id','id');
+    }
 }
